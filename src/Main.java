@@ -12,6 +12,10 @@ public class Main {
         System.out.print("Please Enter your Subtotal: ");
         double subTotal = scanner.nextDouble();
 
+        // Prompt the user to enter the number of people
+        System.out.print("Enter the number of people: ");
+        int numberOfPeople = scanner.nextInt();
+
         // Prompt for tip percentages
         System.out.print("Enter tip percentages (space-separated, e.g., '10 15 20'): ");
         scanner.nextLine(); // Consume the leftover newline
@@ -40,19 +44,22 @@ public class Main {
         // Divider line
         drawHorizontalLine(40);
 
-        // Calculate and print total bill for each tip value with animation
+        // Calculate and print total and per-person tip for each tip value with animation
         for (double tip : tips) {
             double totalBill = subTotal + (subTotal * tip / 100);
-            Thread.sleep(300);
-            System.out.println(centerText(String.format("| Tip @ %.2f%% : $%.2f             |", tip, totalBill), 40));
-        }
+            double perPersonTip = (subTotal * tip / 100) / numberOfPeople;
+            double perPersonTotal = totalBill / numberOfPeople;
 
-        // Draw the bottom horizontal line to end the receipt
-        drawHorizontalLine(40);
+            Thread.sleep(300);
+            System.out.println(centerText(String.format("| Tip @ %.2f%% : Total $%.2f    |", tip, totalBill), 40));
+            System.out.println(centerText(String.format("| Per Person Tip: $%.2f     |", perPersonTip), 40));
+            System.out.println(centerText(String.format("| Per Person Total: $%.2f   |", perPersonTotal), 40));
+            drawHorizontalLine(40);
+        }
 
         // Thank you message at the end of the receipt
         Thread.sleep(300);
-        System.out.println(centerText("|     THANK YOU FOR USING OUR SERVICE     |", 40));
+        System.out.println(centerText("|  THANK YOU FOR USING OUR SERVICE   |", 40));
         drawHorizontalLine(40);
 
         // Close the scanner

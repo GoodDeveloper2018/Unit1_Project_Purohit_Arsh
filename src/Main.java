@@ -1,8 +1,8 @@
+// TipCalculatorRunner.java
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        // Introduction to Tip calculator
         System.out.println("\033[0;1m" + "Welcome to Tip Calculator\n");
 
         // Create new Scanner to take input of subtotal amount
@@ -46,9 +46,10 @@ public class Main {
 
         // Calculate and print total and per-person tip for each tip value with animation
         for (double tip : tips) {
-            double totalBill = subTotal + (subTotal * tip / 100);
-            double perPersonTip = (subTotal * tip / 100) / numberOfPeople;
-            double perPersonTotal = totalBill / numberOfPeople;
+            TipCalculator calculator = new TipCalculator(subTotal, tip, numberOfPeople);
+            double totalBill = calculator.calculateTotalBill();
+            double perPersonTip = calculator.calculatePerPersonTip();
+            double perPersonTotal = calculator.calculatePerPersonTotal();
 
             Thread.sleep(300);
             System.out.println(centerText(String.format("| Tip @ %.2f%% : Total $%.2f    |", tip, totalBill), 40));
